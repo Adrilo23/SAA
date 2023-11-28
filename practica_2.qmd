@@ -1,0 +1,62 @@
+---
+title: "SAA Práctica 2: Fundamentos de estadística y probabilidad para Data Science"
+author: "Adrian Lozano"
+format: html
+editor: visual
+---
+
+# Variable aleatoria contínua:
+
+# 1. Distribución Logística
+
+1.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función logística y sus casos de uso.
+
+```{r}
+
+
+```
+
+1.2 Realiza la representación gráfica de su función de densidad
+
+```{r}
+# Instalar y cargar la librería ggplot2 si no está instalada
+# install.packages("ggplot2")
+library(ggplot2)
+
+# Generar valores x para la función de densidad logística
+x <- seq(-5, 5, length.out = 1000)  # Valores de -5 a 5
+
+# Calcular los valores de la función de densidad logística
+densidad_logistica <- dlogis(x, location = 0, scale = 1)  # Parámetros de ubicación y escala
+
+# Crear un data frame con los valores de x y la función de densidad
+data <- data.frame(x = x, densidad = densidad_logistica)
+
+# Crear el gráfico de la función de densidad logística
+ggplot(data, aes(x = x, y = densidad)) +
+  geom_line(color = "blue", size = 1) +
+  labs(title = "Función de Densidad Logística",
+       x = "x",
+       y = "Densidad") +
+  theme_minimal()
+```
+
+1.3 Explica y pon ejemplos de cómo se generan números aleatorios con la función logística.
+
+1.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+
+# 2. Distribuvión t-student
+
+2.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función t-student y sus casos de uso.
+
+2.2 Realiza la representación gráfica de su función de densidad.
+
+2.3 Explica y pon ejemplos de cómo se generan números aleatorios.
+
+2.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+
+2.5 Realiza una comparativa visual entre la normal y la t-student, representando la normal frente a la t-student para 2, 5, 15 y 25 grados de libertad de la t-student, o los que consideres para una visualización didáctica.
+
+# Variable aleatoria contínua:
+
+# 3. 
