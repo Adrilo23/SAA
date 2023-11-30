@@ -9,14 +9,41 @@ editor: visual
 
 # 1. Distribución Logística
 
-1.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función logística y sus casos de uso.
+### 1.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función logística y sus casos de uso.
 
-```{r}
+La distribución logística, es una función de distribución de probabilidad continua que se utiliza para modelar una variedad de fenómenos en diversas disciplinas, como la economía, la ingeniería, las ciencias sociales y la biología.
 
+La función de distribución logística se define matemáticamente con la siguiente fórmula:
 
-```
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1f289d1a394aa2af5c744765a036a663da71d51b" width="80px"/>
 
-1.2 Realiza la representación gráfica de su función de densidad
+Donde:
+
+-   F(x) es la función de distribución acumulada para un valor.
+
+-   e es la base del logaritmo natural (aproximadamente 2.71828).
+
+-   μ es la media de la distribución.
+
+-   σ es el parámetro de escala que determina la forma de la curva.
+
+Sus casos de uso son:
+
+-   Modelado en estadística y ciencias sociales: La distribución logística se utiliza en análisis estadísticos para modelar variables continuas en campos como la sociología, la psicología, la economía y la demografía. Por ejemplo, puede modelar la distribución de ingresos, el crecimiento de la población, la difusión de enfermedades, etc.
+
+-   Redes neuronales y aprendizaje automático: En el campo del machine learning, la función logística se utiliza en modelos de regresión logística para la clasificación binaria. También se ha utilizado en redes neuronales como función de activación en las capas ocultas.
+
+-   Investigación de operaciones y gestión de la cadena de suministro: En logística y gestión de operaciones, la distribución logística se utiliza para modelar la demanda de productos, tiempos de espera, inventarios y distribución de bienes en una cadena de suministro. Ayuda a optimizar rutas de entrega, gestión de inventario y planificación de la producción.
+
+-   Biología y ciencias de la salud: Se ha aplicado en biología para modelar el crecimiento de poblaciones, la difusión de enfermedades y la distribución de tamaños de organismos entre otros.
+
+### 1.2 Realiza la representación gráfica de su función de densidad
+
+Su función de densidad es:
+
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b03c7c83aca3279426ca33abc40529a12d3f4e66" width="80px"/>
+
+En R utilizamos la función "dlogis()", que permite calcular los valores de la función de densidad para diferentes valores de la variable aleatoria.
 
 ```{r}
 # Instalar y cargar la librería ggplot2 si no está instalada
@@ -32,7 +59,7 @@ densidad_logistica <- dlogis(x, location = 0, scale = 1)  # Parámetros de ubica
 # Crear un data frame con los valores de x y la función de densidad
 data <- data.frame(x = x, densidad = densidad_logistica)
 
-# Crear el gráfico de la función de densidad logística
+# Crear gráfico de la función de densidad logística
 ggplot(data, aes(x = x, y = densidad)) +
   geom_line(color = "blue", size = 1) +
   labs(title = "Función de Densidad Logística",
@@ -41,22 +68,372 @@ ggplot(data, aes(x = x, y = densidad)) +
   theme_minimal()
 ```
 
-1.3 Explica y pon ejemplos de cómo se generan números aleatorios con la función logística.
+### 1.3 Explica y pon ejemplos de cómo se generan números aleatorios con la función logística.
 
-1.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+Para generar números aleatorios que sigan una distribución logística en R, se puede utilizar la función "rlogis()" que pertenece al paquete base de R. Esta función genera valores aleatorios siguiendo una distribución logística con los parámetros de ubicación (μ) y escala (σ) que le proporcionas.
 
-# 2. Distribuvión t-student
+Un ejemplo de como generar números aleatorios con distribución logística sería:
 
-2.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función t-student y sus casos de uso.
+```{r}
+# Generar números aleatorios con distribución logística
+n <- 50  # Número de valores aleatorios a generar
 
-2.2 Realiza la representación gráfica de su función de densidad.
+# Parámetros de la distribución logística (ubicación y escala)
+ubi <- 0  # Ubicación
+esc <- 1  # Escala
 
-2.3 Explica y pon ejemplos de cómo se generan números aleatorios.
+# Generar números aleatorios logísticos
+numeros_aleatorios <- rlogis(n, location = ubi, scale = esc)
 
-2.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+# Mostrar los primeros valores generados
+print(numeros_aleatorios)
 
-2.5 Realiza una comparativa visual entre la normal y la t-student, representando la normal frente a la t-student para 2, 5, 15 y 25 grados de libertad de la t-student, o los que consideres para una visualización didáctica.
+```
 
-# Variable aleatoria contínua:
+### 1.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
 
-# 3. 
+Para calcular probabilidades a partir de la función de distribución acumulada se utiliza la función "plogis()", con parámetros de ubicación (μ) y escala (σ) de forma similar a la función "rlogis()".
+
+```{r}
+# Calcular la probabilidad usando la función de distribución acumulada
+probabilidad <- plogis(2, location = 0, scale = 1)  # Valor de x = 2, parámetros ubi = 0 y esc = 1
+
+# Imprimir la probabilidad calculada
+cat("La probabilidad de que la variable aleatoria sea menor o igual a 2 es:", probabilidad, "\n")
+
+# Calcular la probabilidad usando la función de distribución acumulada
+probabilidad <- plogis(-1, location = 1, scale = 2)  # Valor de x = -1, parámetros ubi = 1 y esc = 2
+
+# Imprimir la probabilidad calculada
+cat("
+La probabilidad de que la variable aleatoria sea menor o igual a -1 es:", probabilidad, "\n")
+
+```
+
+# 2. Distribución t-student
+
+### 2.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad contínuas, elabora un documento donde se describa la función t-student y sus casos de uso.
+
+La distribución t de Student es una distribución de probabilidad que se utiliza comúnmente en estadística para realizar inferencias sobre la media de una población cuando el tamaño muestral es pequeño o cuando la desviación estándar de la población es desconocida. Fue desarrollada por William Sealy Gosset, que utilizó el seudónimo "Student".
+
+-   Forma de la distribución: La forma de la distribución t es similar a la distribución normal, pero con colas más anchas. A medida que aumenta el tamaño de la muestra, la distribución t se aproxima a la distribución normal.
+
+-   Parámetro de grados de libertad: La forma de la distribución t está determinada por los grados de libertad (df). Cuantos más grados de libertad tenga la distribución t, más se asemejará a una distribución normal.
+
+Su funcion de distribución se define de la siguiente forma:
+
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/02732e546784af1fb16d0dc1bb65dd743e2284ad" width="100px"/>
+
+Donde:
+
+-   x es la variable aleatoria.
+
+-   df son los grados de libertad.
+
+-   Γ es la función gamma.
+
+-   2F1 es la función hipergeométrica
+
+Sus casos de uso son:
+
+-   Inferencia estadística: Es ampliamente utilizada en pruebas de hipótesis y en intervalos de confianza cuando se trabaja con muestras pequeñas y la desviación estándar poblacional es desconocida. Por ejemplo, cuando se desea estimar la media de una población a partir de una muestra pequeña.
+
+-   Comparación de medias: Se utiliza en pruebas de comparación de medias para determinar si hay diferencias significativas entre las medias de dos muestras independientes.
+
+-   Regresión lineal: En análisis de regresión, se emplea en la estimación de intervalos de confianza para los coeficientes de regresión cuando el tamaño de la muestra es pequeño.
+
+-   Estudios científicos y experimentales: En diversos campos como la medicina, la psicología, la biología, entre otros, donde se trabaja con muestras pequeñas y se requiere realizar inferencias sobre los parámetros poblacionales.
+
+### 2.2 Realiza la representación gráfica de su función de densidad.
+
+Su función de densidad es:
+
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b7166fd67d01274ccaa6c6002822fec5062c898c" width="100px"/>
+
+En R utilizamos la función "dt()" que calcula los valores de la función de densidad para diferentes valores de la variable aleatoria.
+
+```{r}
+
+# Cargar la librería ggplot2 si no está cargada
+# install.packages("ggplot2")
+library(ggplot2)
+
+# Valores de la variable aleatoria x
+x <- seq(-4, 4, length.out = 1000)  # Valores de -4 a 4 para visualizar la distribución
+
+# Diferentes grados de libertad para la distribución t
+df_values <- c(3, 5, 10)  # Grados de libertad a representar
+
+# Crear un data frame para almacenar los valores de la función de densidad
+data <- data.frame(x = rep(x, each = length(df_values)),
+                   df = rep(df_values, times = length(x)),
+                   density = dt(rep(x, each = length(df_values)), df = rep(df_values, times = length(x))))
+
+# Graficar la función de densidad de la distribución t para diferentes grados de libertad
+ggplot(data, aes(x = x, y = density, color = factor(df))) +
+  geom_line(size = 1) +
+  labs(title = "Función de Densidad de la Distribución t de Student",
+       x = "x",
+       y = "Densidad") +
+  theme_minimal() +
+  scale_color_discrete(name = "Grados de Libertad", labels = c("3", "5", "10"))
+
+
+```
+
+### 2.3 Explica y pon ejemplos de cómo se generan números aleatorios.
+
+Para generar números aleatorios que sigan una distribución t de Student en R, puedes utilizar la función "rt()" que pertenece al paquete base de R. Esta función genera valores aleatorios siguiendo una distribución t de Student con los grados de libertad (df) que sean especificados.
+
+```{r}
+# Generar números aleatorios con distribución t de Student
+n <- 50  # Número de valores aleatorios a generar
+
+# Grados de libertad para la distribución t de Student
+df <- 10  # Ejemplo de 10 grados de libertad
+
+# Generar números aleatorios distribuidos según t de Student
+numeros_aleatorios <- rt(n, df)
+
+# Mostrar los primeros valores generados
+print(numeros_aleatorios)
+
+```
+
+### 2.4 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+
+Para calcular probabilidades a partir de la función de distribución acumulada (CDF) de la distribución t de Student en R, podemos utilizar la función "pt()" que calcula la probabilidad acumulada para valores específicos de la variable aleatoria.
+
+```{r}
+# Calcular la probabilidad usando la función de distribución acumulada
+probabilidad <- pt(1, df = 10)  # Valor de x = 1, grados de libertad = 10
+
+# Imprimir la probabilidad calculada
+cat("La probabilidad de que la variable aleatoria sea menor o igual a 1 es:", probabilidad, "\n")
+
+# Calcular la probabilidad usando la función de distribución acumulada
+probabilidad <- pt(-2, df = 5)  # Valor de x = -2, grados de libertad = 5
+
+# Imprimir la probabilidad calculada
+cat("
+La probabilidad de que la variable aleatoria sea menor o igual a -2 es:", probabilidad, "\n")
+
+
+```
+
+### 2.5 Realiza una comparativa visual entre la normal y la t-student, representando la normal frente a la t-student para 2, 5, 15 y 25 grados de libertad de la t-student, o los que consideres para una visualización didáctica.
+
+```{r}
+# Cargar la librería ggplot2 si no está cargada
+# install.packages("ggplot2")
+library(ggplot2)
+
+# Valores de la variable aleatoria x
+x <- seq(-4, 4, length.out = 1000)  # Valores de -4 a 4 para visualizar la distribución
+
+# Diferentes grados de libertad para la distribución t
+df_values <- c(2, 5, 15, 25)  # Grados de libertad a representar
+
+# Crear un data frame para almacenar los valores de las funciones de densidad
+data <- data.frame(x = rep(x, each = length(df_values)),
+                   df = rep(df_values, times = length(x)),
+                   normal_density = dnorm(rep(x, each = length(df_values))),
+                   t_density = dt(rep(x, each = length(df_values)), df = rep(df_values, times = length(x))))
+
+# Graficar la función de densidad de la distribución normal y t de Student para diferentes grados de libertad
+ggplot(data, aes(x = x, y = normal_density, color = "Normal")) +
+  geom_line(size = 1) +
+  geom_line(aes(y = t_density, color = factor(df))) +
+  labs(title = "Comparación entre la Distribución Normal y t de Student",
+       x = "x",
+       y = "Densidad") +
+  theme_minimal() +
+  scale_color_manual(name = "Distribuciones",
+                     values = c("Normal" = "black", "2" = "red", "5" = "blue", "15" = "green", "25" = "purple"),
+                     labels = c("Normal", "2", "5", "15", "25"))
+
+```
+
+# Variable aleatoria discreta:
+
+# 3.Distribución uniforme discreta
+
+Implementa tu versión de las funciones punifd, runifd, y dunifd
+
+```{r}
+#Generar valores aleatorios
+# Función runifd - Generación de números aleatorios con distribución uniforme discreta
+runifd <- function(n, a, b) { # "a" es el mínimo y "b" el máximo
+  sample(seq(a, b), size = n, replace = TRUE)
+}
+
+#Calcular fdp
+# Función dunifd - Función de densidad de probabilidad de una distribución uniforme discreta
+dunifd <- function(x, a, b) { # "a" es el mínimo y "b" el máximo
+  x <- floor(x)  # Asegurar que x sea un número entero
+  prob <- rep(1 / (b - a + 1), b - a + 1)
+  prob[x >= a & x <= b] <- 0
+  prob
+}
+
+#Calcular CDF (distribución acumulada)
+# Función punifd - Función de distribución acumulada de una distribución uniforme discreta
+punifd <- function(x, a, b) { # "a" es el mínimo y "b" el máximo
+  x <- floor(x)  # Asegurar que x sea un número entero
+  x <- pmin(pmax(x, a), b)  # Ajustar x para estar en el rango [a, b]
+  ifelse(x < a, 0, ifelse(x >= b, 1, (x - a + 1) / (b - a + 1)))
+}
+
+```
+
+```{r}
+# Ejemplo de uso:
+# Generar 10 valores aleatorios con distribución uniforme discreta
+runifd(10, 1, 5)
+```
+
+```{r}
+# Calcular fdp para la secuencia 0:10
+sapply(0:10,a = 1,  b = 6, FUN = dunifd)
+```
+
+```{r}
+# Calcular CDF para q = 4
+cdf_q4 <- punifd(4, 2, 6)
+print(cdf_q4)
+```
+
+# 4. Distribución multinomial
+
+### 4.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad discretas, elabora un documento donde se describa la función multinomial.
+
+La función multinomial es un concepto importante en estadística y probabilidad que se utiliza para modelar experimentos donde hay múltiples categorías o resultados posibles.
+
+En la distribución multinomial, se realizan una serie de "n" ensayos independientes, donde cada ensayo tiene "k" resultados posibles, y se cuentan las frecuencias de cada resultado.
+
+La función de densidad es:
+
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/ea9f1a2ffd551b31409e44765b246d0de1cce9c2" width="120px"/>
+
+Donde:
+
+-   n es el número total de ensayos.
+-   k es el número de categorías.
+-   x1, x2,..., xk son los conteos observados para cada categoría
+-   p1, p2,..., pk son las probailidades de éxito para cada categoría, con <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/8d3c485c39390a1e6e11777baceb6fee9c241527" width="60px"/>
+-   x1! es el factorial de x1 y así sucesivamente
+
+La función multinomial en estadística, a menudo, se utiliza en situaciones donde se realizan múltiples pruebas con más de dos resultados posibles y sus casos de uso son:
+
+-   Genética: Modelado de genotipos en poblaciones.
+
+-   Análisis de datos categóricos: Cuando se analizan datos de encuestas donde se registran respuestas múltiples en diferentes categorías.
+
+-   Economía: Modelado de la distribución de preferencias de los consumidores entre múltiples productos.
+
+-   Biología: Estudio de la distribución de diferentes especies en un ecosistema.
+
+### 4.2 Explica y pon ejemplos de cómo se generan números aleatorios siguiendo su función de densidad.
+
+puedes simular la generación de números aleatorios siguiendo una distribución multinomial utilizando la función "rmultinom()" que se encuentra en el paquete base. Esta función permite generar múltiples muestras de una distribución multinomial con parámetros específicos.
+
+```{r}
+ # Definir probabilidades para 3 categorías
+probabilidades <- c(0.3, 0.4, 0.3)  # Por ejemplo, tres categorías con sus respectivas probabilidades
+
+# Número de ensayos a simular
+n_ensayos <- 50  # Número de ensayos a simular
+
+# Generar números aleatorios siguiendo una distribución multinomial
+resultados_ensayos <- rmultinom(n = n_ensayos, size = 1, prob = probabilidades)
+
+# Mostrar algunos de los resultados generados
+cat("Resultados de algunos ensayos:\n")
+print(resultados_ensayos)  # Mostrar los resultados
+
+```
+
+### 4.3 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+
+La función "dmultinom()" en R calcula directamente la probabilidad de obtener un conjunto específico de resultados en una distribución multinomial con las probabilidades especificadas.
+
+```{r}
+# Definir probabilidades para 3 categorías
+probabilidades <- c(0.3, 0.4, 0.3)
+
+# Resultado deseado: 3, 4 y 3 en tres categorías
+resultado_deseado <- c(3, 4, 3)
+
+# Calcular la probabilidad acumulada de obtener el resultado deseado
+prob_acumulada <- dmultinom(x = resultado_deseado, prob = probabilidades)
+
+# Mostrar la probabilidad acumulada calculada
+cat("La probabilidad acumulada de obtener exactamente 3, 4 y 3 en tres categorías es:", prob_acumulada, "\n")
+
+```
+
+# 5. Distribución de Poisson
+
+### 5.1 Siguiendo un esquema similar al de los apuntes de las distribuciones de probabilidad discretas, elabora un documento donde se describa la función de distribución de probabilidad de Poisson
+
+La distribución de Poisson es una distribución de probabilidad discreta que modela el número de eventos que ocurren en un intervalo de tiempo o espacio fijo, cuando los eventos son raros y ocurren de manera independiente con una tasa promedio conocida.
+
+La función de probabilidad de la distribución de Poisson está dada por:
+
+P(x=k)= <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/ff6662aa606c26842a3ab65035b883cd2793b4e2" width="60px"/>
+
+Donde:
+
+-   P(X=k) es la probabilidad de que ocurran k eventos en el intervalo.
+
+-   e es la base del logaritmo natural (aproximadamente 2.71828).
+
+-   k es el número de eventos que queremos evaluar.
+
+-   λ es el parámetro que representa la tasa promedio de ocurrencia.
+
+-   k! es el factorial de k.
+
+Sus casos de uso son:
+
+-   Procesos de conteo: Se aplica en situaciones donde se cuenta el número de eventos en un intervalo de tiempo o espacio, como en el análisis de la demanda de productos, el número de llegadas a un sitio web, etc.
+
+-   Investigación científica: Se utiliza en la modelización de fenómenos como la radioactividad, la distribución espacial de partículas en un área específica, entre otros.
+
+-   Estudio de riesgos y seguros: En la estimación de la probabilidad de ocurrencia de eventos raros pero importantes, como accidentes, desastres naturales, reclamos de seguros, entre otros.
+
+### 5.2 Explica su relación con la distribución exponencial.
+
+La relación entre la distribución de Poisson y la distribución exponencial se basa en su aplicabilidad en el modelado de procesos de conteo y la ocurrencia de eventos en el tiempo.
+
+-   Distribución de Poisson: Modela la cantidad de eventos que ocurren en un intervalo fijo de tiempo o espacio, cuando estos eventos son raros y ocurren de manera independiente con una tasa promedio conocida (λ). Por ejemplo, el número de llamadas recibidas en un centro de atención telefónica en una hora, el número de errores en un libro de texto, etc.
+
+-   Distribución exponencial: Modela el tiempo entre eventos sucesivos en un proceso de llegada de eventos, donde los eventos ocurren de manera continua y aleatoria con una tasa promedio conocida (λ). Por ejemplo, el tiempo entre llegadas de clientes a un banco, el tiempo entre fallos en un sistema, etc.
+
+La relación principal entre ambas distribuciones radica en su conexión con la tasa promedio de ocurrencia (λ):
+
+-   En la distribución de Poisson, λ representa la tasa promedio de ocurrencia de eventos en un intervalo de tiempo o espacio fijo.
+-   En la distribución exponencial, λ representa la tasa promedio de llegada de eventos por unidad de tiempo.
+
+Ambas están relacionadas por su conexión con la tasa promedio de ocurrencia (λ) y son fundamentales en el modelado de procesos estocásticos donde ocurren eventos aleatorios.
+
+### 5.3 Realiza un par de ejemplos de cálculo de probabilidades a partir de la función de distribución acumulada.
+
+Para calcular probabilidades a partir de la función de distribución acumulada (CDF) de la distribución de Poisson en R, puedes utilizar la función "ppois()", que calcula la probabilidad acumulada de la distribución de Poisson para un cierto número de eventos hasta un valor específico.
+
+```{r}
+# Calcular la probabilidad acumulada usando la función de distribución acumulada
+probabilidad <- ppois(4, lambda = 3)  # Menos de 5 eventos: hasta k = 4
+
+# Imprimir la probabilidad acumulada calculada
+cat("La probabilidad acumulada de menos de 5 eventos es:", probabilidad, "\n")
+
+# Calcular la probabilidad acumulada usando la función de distribución acumulada
+probabilidad <- 1 - ppois(9, lambda = 8)  # Al menos 10 eventos: complemento de hasta k = 9
+
+# Imprimir la probabilidad acumulada calculada
+cat("
+La probabilidad acumulada de al menos 10 eventos es:", probabilidad, "\n")
+
+```
+
