@@ -1,6 +1,6 @@
 ---
 title: "SAA Práctica 2: Fundamentos de estadística y probabilidad para Data Science"
-author: "Adrian Lozano"
+author: "Adrian Lozano Orea"
 format: html
 editor: visual
 ---
