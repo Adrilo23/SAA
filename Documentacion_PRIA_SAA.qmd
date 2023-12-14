@@ -1,0 +1,345 @@
+---
+title: "Documentación PRIA-SAA"
+author: "Adrian Lozano Orea"
+format: html
+editor: visual
+toc: true
+toc-depth: 2
+---
+
+# Operaciones
+
+-   Suma: +
+-   Resta: -
+-   Multiplicación: \*
+-   División: /
+-   Potencia: \^
+-   Módulo: %%
+
+# Código básico
+
+```{r}
+# Crear variables
+
+variable <- 4
+print(variable)
+
+```
+
+# Tipos de variables
+
+-   Numérico, ya sea entero o doble (numeric)
+-   Texto (character)
+-   Booleano o lógico (logical). TRUE ó FALSE. Cuidado porque en R hace distinción de mayúsculas
+-   Complejos (complex)
+
+```{r}
+# Para saber el tipo de variable
+
+class(variable)
+
+```
+
+```{r}
+# Tipo de dato de date()
+
+class(date())
+
+```
+
+# Vectores
+
+```{r}
+# Vector de 1 a 25
+v <- 1:25
+
+# con seq()
+v2 <- seq(1, 25)
+print(v2)
+
+# Crear una secuencia de 0 a 1 con 5 números
+# seq(0, 1, length.out = 5)
+# Crear una secuencia de 10 a 1 con un decremento de 1
+# seq(10, 1, by = -1)
+
+# Con incrementos
+v3 <- seq(1, 25, by = 0.5)
+
+# Calcular la longitud de un vector
+length(v3)
+
+# Elegir solo x numeros de los que hay en el vector
+v4 <- seq(1, 25, by = 0.5, length.out = 10)
+
+# rep() x -> es el numero que vamos a repetir, y -> el número de veces que se repite x
+rep(x,y)
+
+# times  sustituye la segunda variable
+rep(x, times = 3)
+
+```
+
+# Matrices
+
+```{r}
+# Matriz de 1x9 por filas
+matrix(1:9, nrow = 3, byrow = TRUE)
+
+# Matriz de 1x9 por columnas
+matrix(1:9, nrow = 3, byrow = FALSE)
+
+# Matriz de vectores
+the_creator <- c(702465, 1, 702465)
+barbie <- c(61351, 11, 33935231)
+campeonesx <- c(235394, 7, 1732961)
+
+cine <- matrix(c(the_creator, barbie, campeonesx), nrow = 3, byrow = TRUE)
+
+print(cine)
+
+```
+
+# Funciones del entorno
+
+```{r}
+# ls para ver las variables de la sesión de R
+ls()
+
+# Variables ocultas
+.var <- "oculta"
+.var
+
+# Números aleatorios con sample()
+
+v_rnd <- sample(1:3, 3, replace = TRUE)
+print(v_rnd)
+
+# instalar paquetes
+
+# install.packages("ggplot2")
+
+# Cargar librerias
+
+library(ggplot2)
+
+## Instalar librerias y cargar librerias si ya estan instaladas
+library(tidyverse)
+if(!require("scar")) {
+  install.packages("scar")
+}
+library(scar)
+
+if(!require("corrplot")) {
+  install.packages("corrplot")
+}
+library(corrplot)
+if(!require("broom")) {
+  install.packages("broom")
+}
+library(broom)
+
+# Cmabiar el directorio de trabajo con getwd()
+
+# getwd("C:/Users/User/OneDrive/Escritorio/PRIA")
+
+# ver variables de entorno del sistema
+Sys.getenv()
+```
+
+# Estructuras de datos
+
+```{r}
+notas <- c(3, 0, 4, 6, 8, 10, 9, 8, 7, 7, 6, 7, 5)
+calificaciones <- c("S", "S", "S", "A", "N", "MH", "Sb", "N", "N", "N", "A", "N", "A")
+niveles <- c("S", "A", "N", "Sb", "MH")
+etiquetas <- c("Suspenso", "Aprobado", "Notable", "Sobresaliente", "Matrícula de Honor")
+
+# Crear el factor fcalif
+fcalif <- factor(calificaciones, levels = niveles, labels = etiquetas)
+
+# Calcular la media
+mean(notas[fcalif == "S"])
+mean(notas[fcalif == "A"])
+mean(notas[fcalif == "N"])
+
+# head y tail para los primeros y utlimos datos
+head(var,3) # 3 primeras filas
+tail(var,3) # 4 primeras filas
+
+# crear dataframe
+# df <- data.frame(Notas = notas, Calificaciones = fcalif)
+
+# listas
+mi_vector <- 1:20
+mi_matriz <- matrix(1:9, ncol = 3, byrow = TRUE)
+mi_df <- mtcars[1:5, ]
+
+mi_lista <- list(mi_vector = mi_vector, mi_matriz = mi_matriz, mi_df = mi_df)
+mi_lista
+```
+
+# Funciones
+
+```{r}
+ec_2grado_tipo <- function(a, b, c) {
+  if (a == 0) {
+    resultado <- NA
+  } else {
+    discriminante <- b^2 - 4 * a * c
+
+    if (discriminante > 0) {
+      resultado <- 2  # Dos soluciones reales distintas
+    } else if (discriminante == 0) {
+      resultado <- 1  # Una solución real
+    } else {
+      resultado <- 0  # Sin soluciones reales
+    }
+  }
+  
+  return(resultado)
+}
+
+# Ejemplos de llamadas a la función
+ec_2grado_tipo(a = 2, b = 5, c = 0)  # Debería devolver 2
+ec_2grado_tipo(a = 1, b = 2, c = 1)  # Debería devolver 1
+ec_2grado_tipo(a = 1, b = 2, c = 3)  # Debería devolver 0
+ec_2grado_tipo(a = 0, b = 2, c = 0)  # Debería devolver NA
+
+
+```
+
+# Radar
+
+```{r}
+' Cargamos las librerías necesarias
+library(ggradar)
+library(readr)
+
+df <- read_csv("Practica_4.csv")
+
+radartt <- function(baraja, pers) {
+  if (length(pers) > 5) {
+    print("El máximo de personajes permitido es 5. Se ignorarán los personajes adicionales.")
+    pers <- pers[1:5]  # Selecciona solo los primeros 5 personajes si se proporcionan más
+  }
+  
+  df_filtrado <- baraja[baraja$Nombre %in% pers, ]
+  
+  df_para_radar <- df_filtrado[, c("Poder", "Convivencia", "Liante", "Atractivo", "Locura")]
+  
+  # Escalamos los datos por rango para cada columna numérica
+  df_escalado <- as.data.frame(lapply(df_para_radar, function(x) (x - min(x)) / (max(x) - min(x))))
+  
+  # Añadimos la columna de nombres para identificar cada radar
+  df_escalado$Nombre <- df_filtrado$Nombre
+  
+  # Reordenamos las columnas para poner "Nombre" al principio
+  df_escalado <- df_escalado[, c("Nombre", "Poder", "Convivencia", "Liante", "Atractivo", "Locura")]
+  
+  # Creamos el gráfico de radar
+  ggradar(df_escalado, 
+          axis.labels = c("Poder", "Convivencia", "Liante", "Atractivo", "Locura"),
+          grid.min = 0, 
+          grid.mid = 0.7, 
+          grid.max = 1,
+          grid.label.size = 6,
+          legend.text.size = 10)
+}
+
+# Ejemplo de uso con más de 5 personajes
+radartt(df, c("Javi", "Vicente", "Berta", "Maite", "Patricio", "Raquel"))
+
+# Ejemplo de uso con 5 o menos personajes
+radartt(df, c("Javi", "Vicente", "Berta", "Maite", "Patricio")) '
+```
+
+# Ggimg
+
+```{r}
+'
+library(ggplot2)
+library(ggimg)
+library(dplyr)
+
+# Supongamos que tienes un conjunto de datos con las columnas: Nombre, Poder, Convivencia, y path
+# Reemplaza "Nombre", "Poder", "Convivencia", y "path" con los nombres reales de tus columnas
+df <- read.csv("Practica_4.csv")
+
+# Función para filtrar y asignar rutas de imágenes
+imagett <- function(baraja, pers, images) {
+  nombres_personajes <- pers
+  rutas_imagenes <- images
+
+  df_filtrado <- baraja[baraja$Nombre %in% pers, ]
+
+  # Crear una nueva columna "Imagen" y asignar las rutas de las imágenes según los nombres de los personajes
+  df_filtrado <- df_filtrado %>%
+    mutate(Imagen = rutas_imagenes[match(Nombre, nombres_personajes)])
+
+  return(df_filtrado)
+}
+
+# Llamada a la función con tus datos
+df_filtrado <- imagett(df, c("Javi", "Vicente", "Berta", "Maite", "Patricio"), c("javi.jpg","vicente.jpg","berta.jpg","maite.jpg","patricio.jpg"))
+print(df_filtrado)
+
+
+# Crear el gráfico con ggplot2 y ggimg
+ggplot(df_filtrado) +
+  geom_rect_img(aes(
+    xmin = Locura - 0.5,
+    xmax = Locura + 0.5,
+    ymin = Convivencia - 0.5,
+    ymax = Convivencia + 0.5,
+    img = Imagen
+  )) +
+  theme_minimal()
+'
+```
+
+# Dataframe
+
+```{r}
+# Crear un dataframe a partir de un csv
+# csv <- read.csv("Practica_0.csv")
+# data.frame(csv)
+```
+
+# Valor esperado
+
+```{r}
+library(dplyr)
+
+# La media de resultados de dados
+dado <- data.frame(n=1:6)
+mean(dado$n)
+# Si se lanza 50 veces el dado
+dado_x50 <- dado %>%
+  sample_n(50, replace=TRUE)
+mean(dado_x50$n)
+```
+
+# Duplicados en un vector
+
+```{r}
+# cuantos duplicados hay en un vector
+n <- 50
+dias <- sample(1:365, n, replace = TRUE)
+
+duplicated(c(1,2,3,1,4,3,5))
+
+duplicated(dias)
+
+# any si algun dato es TRUE
+any(duplicated(c(1,2,3,1,4,3,5)))
+any(duplicated(dias))
+
+# replicate para repetir algo varias veces
+B <- 10000
+mismo_dia_cumple <- function(n) {
+  dias <- sample(1:365, n, replace = TRUE)
+  any(duplicated(dias))
+}
+results <- replicate(B, mismo_dia_cumple(n))
+mean(results)
+```
